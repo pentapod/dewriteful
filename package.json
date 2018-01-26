@@ -1,0 +1,17 @@
+{
+  "name": "dewriteful",
+  "version": "0.1.0",
+  "main": "index.js",
+  "author": "spring-raining",
+  "license": "MIT",
+  "scripts": {
+    "test": "node_modules/.bin/jest"
+  },
+  "dependencies": {
+    "remark": "^9.0.0",
+    "remark-html": "^7.0.0"
+  },
+  "devDependencies": {
+    "jest": "^22.1.4"
+  }
+}
