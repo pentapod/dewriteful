@@ -97,15 +97,10 @@ module.exports = [[
   `,
 ], [
   'works with footnote and definition',
-  '[^foo]\n\n[^foo]: see also [document](http://example.com)',
+  'texttext[^foo]\n\n[^foo]: see also [document](http://example.com)',
   stripIndent`
-    <p><sup id="fnref-foo"><a href="#fn-foo" class="footnote-ref">foo</a></sup></p>
-    <div class="footnotes">
-      <hr>
-      <ol>
-        <li id="fn-foo">
-          <p>see also <a href="http://example.com">document</a></p><a href="#fnref-foo" class="footnote-backref">↩</a></li>
-      </ol>
-    </div>
+    <p>texttext
+      <div class="footnote">see also <a href="http://example.com">document</a></div>
+    </p>
   `,
 ]];

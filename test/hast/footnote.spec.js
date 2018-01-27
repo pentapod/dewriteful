@@ -5,12 +5,12 @@ const format = require('rehype-format');
 const stringify = require('rehype-stringify');
 const h = require('hastscript');
 const footnote = require('../../lib/packages/remark-footnote-in-place');
-const {parseOptions} = require('../../lib/processor');
+const {parseOptions, mark2hypeOptions} = require('../../lib/processor');
 
 const parser = unified()
   .use(parse, parseOptions)
   .use(footnote)
-  .use(mark2hype)
+  .use(mark2hype, mark2hypeOptions)
   .use(stringify)
   .freeze();
 
@@ -19,30 +19,10 @@ const specTemplates = [[
   '[^foo]\n\n[^foo]: see also [document](http://example.com)',
   [
     h('p', [
-      h('sup#fnref-1', [
-        h('a.footnote-ref', {href: '#fn-1'}, '1'),
+      h('div.footnote', [
+        'see also ',
+        h('a', {href: 'http://example.com'}, 'document'),
       ]),
-    ]),
-    {type: 'text', value: '\n'},
-    h('div.footnotes', [
-      '\n',
-      h('hr'),
-      '\n',
-      h('ol', [
-        '\n',
-        h('li#fn-1', [
-          '\n',
-          h('p', [
-            'see also ',
-            h('a', {href: 'http://example.com'}, 'document'),
-          ]),
-          '\n',
-          h('a.footnote-backref', {href: '#fnref-1'},'↩'),
-          '\n',
-        ]),
-        '\n',
-      ]),
-      '\n'
     ]),
   ],
 ], [
@@ -51,8 +31,32 @@ const specTemplates = [[
   [
     h('p', [
       'footnote',
-      h('sup#fnref-1', [
-        h('a.footnote-ref', {href: '#fn-1'}, '1'),
+      h('div.footnote', [
+        'lorem ipsum',
+      ]),
+    ]),
+  ],
+], [
+  'parse multi footnote references',
+  '[^foo]\n[^foo]\n\n[^foo]: footnote',
+  [
+    h('p', [
+      h('div.footnote', [
+        'footnote',
+      ]),
+      '\n',
+      h('div.footnote', [
+        'footnote',
+      ]),
+    ]),
+  ],
+], [
+  'parse multi footnote definition',
+  '[^foo]\n\n[^foo]: one definition\n[^foo]: another definition',
+  [
+    h('p', [
+      h('div.footnote', [
+        'one definition',
       ]),
     ]),
     {type: 'text', value: '\n'},
@@ -62,18 +66,30 @@ const specTemplates = [[
       '\n',
       h('ol', [
         '\n',
-        h('li#fn-1', [
+        h('li#fn-foo', [
           '\n',
           h('p', [
-            'lorem ipsum',
+            'another definition',
           ]),
           '\n',
-          h('a.footnote-backref', {href: '#fnref-1'}, '↩'),
+          h('a.footnote-backref', {href: '#fnref-foo'}, '↩'),
           '\n',
         ]),
         '\n',
       ]),
       '\n',
+    ]),
+  ]
+], [
+  'parse undefined footnote reference',
+  '[^foo]',
+  [
+    h('p', [
+      h('sup#fnref-foo', [
+        h('a.footnote-ref', {href: '#fn-foo'}, [
+          'foo',
+        ]),
+      ]),
     ]),
   ],
 ]];
