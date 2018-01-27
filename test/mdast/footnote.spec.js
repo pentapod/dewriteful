@@ -1,9 +1,11 @@
 const unified = require('unified');
 const parse = require('remark-parse');
+const footnote = require('../../lib/packages/remark-footnote-in-place');
 const {parseOptions} = require('../../lib/processor');
 
 const parser = unified()
   .use(parse, parseOptions)
+  .use(footnote)
   .freeze();
 
 const specTemplates = [[
@@ -12,14 +14,7 @@ const specTemplates = [[
   [{
     type: 'paragraph',
     children: [{
-      type: 'footnoteReference',
-      identifier: 'foo',
-    }],
-  }, {
-    type: 'footnoteDefinition',
-    identifier: 'foo',
-    children: [{
-      type: 'paragraph',
+      type: 'footnote',
       children: [{
         type: 'text',
         value: 'see also ',
@@ -49,11 +44,67 @@ const specTemplates = [[
       }],
     }],
   }],
+], [
+  'parse multi footnote references',
+  '[^foo]\n[^foo]\n\n[^foo]: footnote',
+  [{
+    type: 'paragraph',
+    children: [{
+      type: 'footnote',
+      children: [{
+        type: 'text',
+        value: 'footnote',
+      }],
+    }, {
+      type: 'text',
+      value: '\n',
+    }, {
+      type: 'footnote',
+      children: [{
+        type: 'text',
+        value: 'footnote',
+      }],
+    }],
+  }],
+], [
+  'parse multi footnote definition',
+  '[^foo]\n\n[^foo]: one definition\n[^foo]: another definition',
+  [{
+    type: 'paragraph',
+    children: [{
+      type: 'footnote',
+      children: [{
+        type: 'text',
+        value: 'one definition',
+      }],
+    }],
+  }, {
+    type: 'footnoteDefinition',
+    identifier: 'foo',
+    children: [{
+      type: 'paragraph',
+      children: [{
+        type: 'text',
+        value: 'another definition',
+      }],
+    }],
+  }],
+], [
+  'parse undefined footnote reference',
+  '[^foo]',
+  [{
+    type: 'paragraph',
+    children: [{
+      type: 'footnoteReference',
+      identifier: 'foo',
+    }],
+  }],
 ]];
 
 specTemplates.forEach(tmpl => {
   it(tmpl[0], () => {
     const mdast = parser.parse(tmpl[1]);
-    expect(mdast.children).toMatchObject(tmpl[2]);
+    const converted = parser.runSync(mdast);
+    expect(converted.children).toMatchObject(tmpl[2]);
   });
 });
