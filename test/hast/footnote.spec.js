@@ -5,11 +5,13 @@ const format = require('rehype-format');
 const stringify = require('rehype-stringify');
 const h = require('hastscript');
 const footnote = require('../../lib/packages/remark-footnote-in-place');
+const ruby = require('../../lib/packages/remark-ruby');
 const {parseOptions, mark2hypeOptions} = require('../../lib/processor');
 
 const parser = unified()
   .use(parse, parseOptions)
   .use(footnote)
+  .use(ruby)
   .use(mark2hype, mark2hypeOptions)
   .use(stringify)
   .freeze();

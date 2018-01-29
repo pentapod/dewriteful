@@ -1,11 +1,13 @@
 const unified = require('unified');
 const parse = require('remark-parse');
 const footnote = require('../../lib/packages/remark-footnote-in-place');
+const ruby = require('../../lib/packages/remark-ruby');
 const {parseOptions} = require('../../lib/processor');
 
 const parser = unified()
   .use(parse, parseOptions)
   .use(footnote)
+  .use(ruby)
   .freeze();
 
 const specTemplates = [[
