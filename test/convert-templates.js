@@ -103,4 +103,19 @@ module.exports = [[
       <div class="footnote">see also <a href="http://example.com">document</a></div>
     </p>
   `,
+], [
+  'works with ruby',
+  stripIndent`
+    foo bar |baz<<ruby text>>
+
+    漢字<<kanji>>と
+    |カタカナ<<katakana>>
+  `,
+  stripIndent`
+    <p>foo bar <ruby>baz<rt>ruby text</rt></ruby></p>
+    <p>
+      <ruby>漢字<rt>kanji</rt></ruby>と
+      <ruby>カタカナ<rt>katakana</rt></ruby>
+    </p>
+  `,
 ]];
