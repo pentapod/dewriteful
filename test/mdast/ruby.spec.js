@@ -1,14 +1,4 @@
-const unified = require('unified');
-const parse = require('remark-parse');
-const footnote = require('../../lib/packages/remark-footnote-in-place');
-const ruby = require('../../lib/packages/remark-ruby');
-const {parseOptions} = require('../../lib/processor');
-
-const parser = unified()
-  .use(parse, parseOptions)
-  .use(footnote)
-  .use(ruby)
-  .freeze();
+const {toMDASTParser} = require('../../lib/processor');
 
 const specTemplates = [[
   'parse ruby applying kanji',
@@ -131,8 +121,8 @@ const specTemplates = [[
 
 specTemplates.forEach(tmpl => {
   it(tmpl[0], () => {
-    const mdast = parser.parse(tmpl[1]);
-    const converted = parser.runSync(mdast);
+    const mdast = toMDASTParser.parse(tmpl[1]);
+    const converted = toMDASTParser.runSync(mdast);
     expect(converted.children).toMatchObject(tmpl[2]);
   });
 });
