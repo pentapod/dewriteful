@@ -39,6 +39,38 @@ const specTemplates = [[
       value: 'test',
     }],
   }],
+], [
+  'parse commonmark',
+  stripIndent`
+    ---
+    commonmark: true
+    ---
+    > This is a blockquote.
+
+    > This is, in commonmark mode, another blockquote.
+  `,
+  [{
+    type: 'yaml',
+    value: 'commonmark: true',
+  }, {
+    type: 'blockquote',
+    children: [{
+      type: 'paragraph',
+      children: [{
+        type: 'text',
+        value: 'This is a blockquote.',
+      }],
+    }],
+  }, {
+    type: 'blockquote',
+    children: [{
+      type: 'paragraph',
+      children: [{
+        type: 'text',
+        value: 'This is, in commonmark mode, another blockquote.',
+      }],
+    }],
+  }],
 ]];
 
 const abnormalSpecTemplates = [[

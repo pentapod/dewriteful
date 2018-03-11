@@ -106,6 +106,9 @@ module.exports = [[
 ], [
   'works with ruby',
   stripIndent`
+    ---
+    ruby: true
+    ---
     foo bar |baz<<ruby text>>
 
     漢字<<kanji>>と

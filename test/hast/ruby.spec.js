@@ -1,9 +1,15 @@
+const {stripIndent} = require('common-tags');
 const h = require('hastscript');
 const {toHASTParser} = require('../../lib/processor');
 
 const specTemplates = [[
   'parse ruby applying kanji',
-  'とある魔術の禁書目録<<インデックス>>',
+  stripIndent`
+    ---
+    ruby: true
+    ---
+    とある魔術の禁書目録<<インデックス>>
+  `,
   [
     {type: 'text', value: '\n'},
     h('p', [
@@ -17,7 +23,12 @@ const specTemplates = [[
   ],
 ], [
   'parse ruby starts with vertical bar',
-  '|Underworld<<アンダーワールド>>',
+  stripIndent`
+    ---
+    ruby: true
+    ---
+    |Underworld<<アンダーワールド>>
+  `,
   [
     {type: 'text', value: '\n'},
     h('p', [
@@ -30,7 +41,12 @@ const specTemplates = [[
   ],
 ], [
   'parse invalid ruby format (1)',
-  'testcase |foo<<bar',
+  stripIndent`
+    ---
+    ruby: true
+    ---
+    testcase |foo<<bar
+  `,
   [
     {type: 'text', value: '\n'},
     h('p', [
@@ -40,7 +56,12 @@ const specTemplates = [[
   ],
 ], [
   'parse invalid ruby format (2)',
-  'test|case>>foo<<bar',
+  stripIndent`
+    ---
+    ruby: true
+    ---
+    test|case>>foo<<bar
+  `,
   [
     {type: 'text', value: '\n'},
     h('p', [
@@ -50,7 +71,12 @@ const specTemplates = [[
   ],
 ], [
   'parse ruby with strong word',
-  '単語を|**強調**<<きょうちょう>>する',
+  stripIndent`
+    ---
+    ruby: true
+    ---
+    単語を|**強調**<<きょうちょう>>する
+  `,
   [
     {type: 'text', value: '\n'},
     h('p', [
@@ -65,7 +91,14 @@ const specTemplates = [[
   ],
 ], [
   'parse ruby splitted by new line',
-  'Java+You\n|download\ntoday<<right now>>',
+  stripIndent`
+    ---
+    ruby: true
+    ---
+    Java+You
+    |download
+    today<<right now>>
+  `,
   [
     {type: 'text', value: '\n'},
     h('p', [
@@ -78,7 +111,12 @@ const specTemplates = [[
   ],
 ], [
   'parse combined ruby',
-  '|abc|def<<ghi>><<jkl>>',
+  stripIndent`
+    ---
+    ruby: true
+    ---
+    |abc|def<<ghi>><<jkl>>
+  `,
   [
     {type: 'text', value: '\n'},
     h('p', [
