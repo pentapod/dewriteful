@@ -8,7 +8,9 @@
     "test": "node_modules/.bin/jest"
   },
   "dependencies": {
+    "github-slugger": "^1.2.0",
     "js-yaml": "^3.10.0",
+    "mdast-util-to-string": "^1.0.4",
     "rehype-format": "^2.2.0",
     "rehype-stringify": "^3.0.0",
     "remark-frontmatter": "^1.2.0",
