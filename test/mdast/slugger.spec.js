@@ -57,8 +57,8 @@ const specTemplates = [[
     depth: 3,
     data: {
       id: 'with-class',
-      class: ['foo'],
-      hProperties: { id: 'with-class', class: ['foo'] },
+      className: ['foo'],
+      hProperties: { id: 'with-class', className: ['foo'] },
     },
     children: [{
       type: 'text',
@@ -69,8 +69,7 @@ const specTemplates = [[
     depth: 2,
     data: {
       id: 'a',
-      class: [],
-      hProperties: { id: 'a', class: [] },
+      hProperties: { id: 'a' },
     },
     children: [{
       type: 'text',
@@ -161,8 +160,8 @@ const specTemplates = [[
     depth: 1,
     data: {
       id: 'helloworld',
-      class: ['cls'],
-      hProperties: { id: 'helloworld', class: ['cls'] },
+      className: ['cls'],
+      hProperties: { id: 'helloworld', className: ['cls'] },
     },
     children: [{
       type: 'text',
@@ -173,8 +172,8 @@ const specTemplates = [[
     depth: 2,
     data: {
       id: 'id',
-      class: ['cls'],
-      hProperties: { id: 'id', class: ['cls'] },
+      className: ['cls'],
+      hProperties: { id: 'id', className: ['cls'] },
     },
     children: [{
       type: 'text',
@@ -185,8 +184,8 @@ const specTemplates = [[
     depth: 3,
     data: {
       id: 'xyz',
-      class: ['cls'],
-      hProperties: { id: 'xyz', class: ['cls'] },
+      className: ['cls'],
+      hProperties: { id: 'xyz', className: ['cls'] },
     },
     children: [{
       type: 'text',
@@ -197,8 +196,7 @@ const specTemplates = [[
     depth: 4,
     data: {
       id: 'a-b-c--cls-yo',
-      class: [],
-      hProperties: { id: 'a-b-c--cls-yo', class: [] },
+      hProperties: { id: 'a-b-c--cls-yo' },
     },
     children: [{
       type: 'text',

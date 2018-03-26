@@ -121,4 +121,22 @@ module.exports = [[
       <ruby>カタカナ<rt>katakana</rt></ruby>
     </p>
   `,
+], [
+  'works with header attribute',
+  stripIndent`
+    ---
+    headerAttribute: true
+    ---
+    ### ATX header with class {.hello}
+
+    Setext header with class {.hola}
+    --------------------------------
+
+    # Header with closing hash {#test} #
+  `,
+  stripIndent`
+    <h3 id="atx-header-with-class" class="hello">ATX header with class</h3>
+    <h2 id="setext-header-with-class" class="hola">Setext header with class</h2>
+    <h1 id="test">Header with closing hash</h1>
+  `,
 ]];
