@@ -1,0 +1,37 @@
+version: 2
+
+workflows:
+  version: 2
+  test:
+    jobs:
+      - test-node9
+      - test-node8
+      - test-node6
+
+jobs:
+  test-node9: &test-template
+    docker:
+      - image: circleci/node:9
+    working_directory: ~/dewriteful
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "package.json" }}
+            - v1-dependencies-
+      - run: yarn install
+      - save_cache:
+          key: v1-dependencies-{{ checksum "package.json" }}
+          paths:
+            - node_modules
+      - run: yarn test
+
+  test-node8:
+    <<: *test-template
+    docker:
+      - image: circleci/node:8
+
+  test-node6:
+    <<: *test-template
+    docker:
+      - image: circleci/node:6
