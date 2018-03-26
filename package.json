@@ -5,7 +5,8 @@
   "author": "spring-raining",
   "license": "MIT",
   "scripts": {
-    "test": "node_modules/.bin/jest"
+    "test": "node_modules/.bin/jest",
+    "lint": "eslint 'lib/**/*.js' --fix"
   },
   "dependencies": {
     "github-slugger": "^1.2.0",
@@ -21,7 +22,11 @@
   },
   "devDependencies": {
     "common-tags": "^1.7.2",
+    "eslint": "^4.19.1",
+    "eslint-config-prettier": "^2.9.0",
+    "eslint-plugin-prettier": "^2.6.0",
     "hastscript": "^3.1.0",
-    "jest": "^22.1.4"
+    "jest": "^22.1.4",
+    "prettier": "1.11.1"
   }
 }
