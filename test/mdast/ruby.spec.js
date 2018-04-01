@@ -176,6 +176,56 @@ const specTemplates = [[
       value: '>',
     }],
   }],
+], [
+  'cancel ruby',
+  stripIndent`
+    ---
+    ruby: true
+    ---
+    |<<abc*def*>>**ghi**
+
+    empty|<<>>
+  `,
+  [{
+    type: 'yaml',
+    value: 'ruby: true',
+  }, {
+    type: 'paragraph',
+    children: [{
+      type: 'text',
+      value: '<<',
+    }, {
+      type: 'text',
+      value: 'abc',
+    }, {
+      type: 'emphasis',
+      children: [{
+        type: 'text',
+        value: 'def',
+      }],
+    }, {
+      type: 'text',
+      value: '>>',
+    }, {
+      type: 'strong',
+      children: [{
+        type: 'text',
+        value: 'ghi',
+      }],
+    }],
+  }, {
+    type: 'paragraph',
+    children: [{
+      type: 'text',
+      value: 'empty',
+    }, {
+      type: 'text',
+      value: '<<',
+    }, {
+      type: 'text',
+      value: '>>',
+    }],
+  }],
 ]];
 
 specTemplates.forEach(tmpl => {
